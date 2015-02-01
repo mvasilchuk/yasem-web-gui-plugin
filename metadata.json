@@ -1,0 +1,7 @@
+{
+  "name":"Web GUI",
+  "version": "0.1",
+  "id": "web-gui",
+    "roles": ["stbapi"],
+    "dependencies": ["datasource", "browser"]
+}
