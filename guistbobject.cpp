@@ -50,7 +50,7 @@ QJsonObject GuiStbObject::getProfilesMenuJson()
 
     QJsonObject obj;
     obj.insert("type", QString());
-    obj.insert("image", QString("/icons/add-stb-profile.png"));
+    obj.insert("image", QString("../icons/add-stb-profile.png"));
     obj.insert("title", tr("New profile"));
     obj.insert("submenu", MENU_NEW_PROFILE_CLASSES);
 
