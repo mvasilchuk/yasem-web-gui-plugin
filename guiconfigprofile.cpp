@@ -51,9 +51,18 @@ void GuiConfigProfile::configureKeyMap()
 
 QString GuiConfigProfile::portal()
 {
+    QString urlToLoad;
     QString url = datasource()->get("common", "url");
-    if(url.startsWith("file://"))
-        return url;
+
+    if(url.startsWith("file:///"))
+        urlToLoad = url;
     else
-        return QString("file://%1/%2").arg(qApp->applicationDirPath()).arg(url);
+    {
+#ifdef Q_OS_WIN
+        urlToLoad =  QString("file:///%1/%2").arg(qApp->applicationDirPath()).arg(url);
+#else
+        urlToLoad = QString("file://%1/%2").arg(qApp->applicationDirPath()).arg(url);
+#endif
+    }
+   return urlToLoad;
 }
