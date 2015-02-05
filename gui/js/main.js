@@ -3,7 +3,7 @@
   var Main;
 
   Main = (function() {
-    var Menu, PAGE_IDENT, STORAGE_CURRENT_ITEM_ID, STORAGE_CURRENT_MENU, appInfo, by_id, central_item_index, items_visible, menu_container, menu_position, menu_size, menu_stack, menu_visual_type, page_stack, page_state, _createNode;
+    var Menu, PAGE_IDENT, STORAGE_CURRENT_ITEM_ID, STORAGE_CURRENT_MENU, appInfo, by_id, central_item_index, items_visible, menu_container, menu_outer_container, menu_position, menu_size, menu_stack, menu_visual_type, page_stack, page_state, _createNode;
 
     function Main() {}
 
@@ -14,6 +14,8 @@
     appInfo = {};
 
     menu_container = null;
+
+    menu_outer_container = null;
 
     PAGE_IDENT = {
       MENU: "menu",
@@ -125,6 +127,7 @@
 
     Main.prototype.clear_menu = function() {
       var _results;
+      menu_outer_container = document.getElementById('menu');
       menu_container = document.getElementById('main-menu');
       _results = [];
       while (menu_container.hasChildNodes()) {
@@ -400,8 +403,9 @@
     };
 
     Main.prototype.select_menu_item = function(x, y) {
-      var menu_item_count;
+      var menu_item_count, row_count, scroll_value;
       menu_item_count = Menu.items[Menu.current].count;
+      row_count = Math.floor(menu_item_count / menu_size.width) + 1;
       if (x >= menu_size.width) {
         x = x - menu_size.width;
         y++;
@@ -410,13 +414,13 @@
         x = menu_size.width + x;
         y--;
       }
-      if (y >= menu_size.height) {
-        y = y - menu_size.height;
+      if (y >= row_count) {
+        y = y - row_count;
       }
       if (y < 0) {
-        y = menu_size.height + y;
+        y = row_count + y;
       }
-      if ((x + 1) * (y + 1) >= menu_size.width * menu_size.height) {
+      if ((x + 1) * (y + 1) >= menu_size.width * row_count) {
         x = 0;
         y = 0;
       }
@@ -426,6 +430,13 @@
       }
       menu_position.x = x;
       menu_position.y = y;
+      scroll_value = y * 270;
+      if (y >= 2) {
+        menu_outer_container.scrollTop = scroll_value;
+      }
+      if (y <= menu_size.height - 2) {
+        menu_outer_container.scrollTop = -scroll_value;
+      }
       return this.move_menu_blocks(x + menu_size.width * y);
     };
 

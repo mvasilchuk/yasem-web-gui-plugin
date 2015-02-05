@@ -8,6 +8,7 @@ class Main
     appInfo = {}
 
     menu_container = null
+    menu_outer_container = null
 
     PAGE_IDENT = {
         MENU: "menu",
@@ -108,6 +109,7 @@ class Main
         central_item_index = Math.floor(items_visible / 2)
 
     clear_menu: () ->
+        menu_outer_container = document.getElementById('menu')
         menu_container = document.getElementById('main-menu')
         while(menu_container.hasChildNodes())
             menu_container.removeChild(menu_container.firstChild)
@@ -319,6 +321,8 @@ class Main
 
         menu_item_count = Menu.items[Menu.current].count
 
+        row_count = Math.floor(menu_item_count / menu_size.width) + 1
+
         if x >= menu_size.width
             x = x - menu_size.width
             y++
@@ -327,13 +331,13 @@ class Main
             x = menu_size.width + x
             y--
 
-        if y >= menu_size.height
-            y = y - menu_size.height
+        if y >= row_count
+            y = y - row_count
 
         if y < 0
-            y = menu_size.height + y
+            y = row_count + y
 
-        if (x + 1) * (y + 1) >= menu_size.width * menu_size.height
+        if (x + 1) * (y + 1) >= menu_size.width * row_count
             x = 0
             y = 0
 
@@ -343,6 +347,14 @@ class Main
 
         menu_position.x = x
         menu_position.y = y
+
+        # TODO: Remove hardcoded value
+        scroll_value = y * 270
+
+        if(y >= 2)
+            menu_outer_container.scrollTop = scroll_value
+        if(y <= menu_size.height - 2)
+            menu_outer_container.scrollTop = -scroll_value
 
         @move_menu_blocks(x + menu_size.width * y)
 
