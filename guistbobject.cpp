@@ -168,7 +168,7 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
            }
        }
 
-       result_object.insert("submodel", profile->getSubmodel()->id);
+       result_object.insert("submodel", profile->getSubmodel().id);
        result_object.insert("submodel_key", QString("%1/%2").arg(profile->getProfilePlugin()->getSubmodelDatasourceGroup(), profile->getProfilePlugin()->getSubmodelDatasourceField()));
        result_object.insert("options", arr);
 
