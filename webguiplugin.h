@@ -9,6 +9,8 @@
 namespace yasem
 {
 
+class AbstractWebPage;
+
 class WebGuiPlugin : public QObject, public StbPlugin
 {
     Q_OBJECT
@@ -36,8 +38,11 @@ public:
 public:
     QString getProfileClassId();
     Profile *createProfile(const QString &id);
-    void init();
+    void init(AbstractWebPage* page);
     QString getIcon(const QSize &size);
+
+protected:
+    AbstractWebPage* m_page;
 };
 }
 

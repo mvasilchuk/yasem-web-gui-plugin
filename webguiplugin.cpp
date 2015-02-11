@@ -27,7 +27,6 @@ PLUGIN_ERROR_CODES yasem::WebGuiPlugin::initialize()
     gui(dynamic_cast<GuiPlugin*>(PluginManager::instance()->getByRole(ROLE_GUI)));
     browser(dynamic_cast<BrowserPlugin*>(PluginManager::instance()->getByRole(ROLE_BROWSER)));
 
-    LOG() << "WEB GUI INIT ------";
     Profile* profile = ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
     Q_ASSERT(profile);
     return PLUGIN_ERROR_NO_ERROR;
@@ -64,7 +63,7 @@ Profile *yasem::WebGuiPlugin::createProfile(const QString &id)
     return profile;
 }
 
-void yasem::WebGuiPlugin::init()
+void yasem::WebGuiPlugin::init(AbstractWebPage* page)
 {
     getApi().clear();
     getApi().insert("__GUI__", new GuiStbObject(this));
