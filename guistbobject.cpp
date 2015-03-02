@@ -207,22 +207,30 @@ QString GuiStbObject::getTranslations()
 void GuiStbObject::loadProfile(const QString &id)
 {
     Profile* profile = ProfileManager::instance()->findById(id);
-    Q_ASSERT(profile);
-    ProfileManager::instance()->setActiveProfile(profile);
+    if(profile != NULL)
+        ProfileManager::instance()->setActiveProfile(profile);
+    else
+        WARN() << qPrintable(QString("GuiStbObject::loadProfile: can't load profile %1").arg(id));
 }
 
 bool GuiStbObject::saveProfile(const QString &id, const QString& jsonData)
 {
     DEBUG() << id << jsonData;
     Profile* profile = ProfileManager::instance()->findById(id);
-    Q_ASSERT(profile);
-    return profile->saveJsonConfig(jsonData);
+    if(profile != NULL)
+        return profile->saveJsonConfig(jsonData);
+    else
+        WARN() << qPrintable(QString("GuiStbObject::saveProfile: can't save the profile %1 with data %2").arg(id).arg(jsonData));
+    return false;
 }
 
 bool GuiStbObject::removeProfile(const QString &id)
 {
     Profile* profile = ProfileManager::instance()->findById(id);
-    return ProfileManager::instance()->removeProfile(profile);
+    if(profile != NULL)
+        return ProfileManager::instance()->removeProfile(profile);
+    else
+        WARN() << qPrintable(QString("GuiStbObject::removeProfile: can't remove the profile %1").arg(id));
 }
 
 QString GuiStbObject::getAppInfo()

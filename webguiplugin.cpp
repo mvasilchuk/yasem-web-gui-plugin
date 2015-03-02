@@ -41,7 +41,7 @@ void yasem::WebGuiPlugin::register_dependencies()
 {
     add_dependency(ROLE_BROWSER);
     add_dependency(ROLE_GUI);
-    add_dependency(ROLE_WEB_SERVER);
+    add_dependency(PluginDependency(ROLE_WEB_SERVER, false));
 }
 
 void yasem::WebGuiPlugin::register_roles()

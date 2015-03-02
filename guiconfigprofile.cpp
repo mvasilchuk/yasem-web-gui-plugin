@@ -14,9 +14,13 @@ void GuiConfigProfile::start()
 {
     STUB();
     configureKeyMap();
-    profilePlugin->browser()->stb(profilePlugin);
-    profilePlugin->browser()->setInnerSize(QSize(1920, 1080));
-    profilePlugin->browser()->load(QUrl(portal()));
+    BrowserPlugin* browser = profilePlugin->browser();
+    if(browser)
+    {
+        browser->stb(profilePlugin);
+        browser->setInnerSize(QSize(1920, 1080));
+        browser->load(QUrl(portal()));
+    }
 }
 
 void GuiConfigProfile::stop()
@@ -26,27 +30,34 @@ void GuiConfigProfile::stop()
 
 void GuiConfigProfile::initDefaults()
 {
-    if(datasource()->get("common", "url") == "")
-        datasource()->set("common", "url", "gui/html/main.html");
+    if(datasource())
+    {
+        if(datasource()->get("common", "url") == "")
+            datasource()->set("common", "url", "gui/html/main.html");
+    }
 }
 
 void GuiConfigProfile::configureKeyMap()
 {
-    profilePlugin->browser()->clearKeyEvents();
-    //profilePlugin->browser()->registerKeyEvent(RC_KEY_LEFT, 37, 37);
-    //profilePlugin->browser()->registerKeyEvent(RC_KEY_UP, 38, 38);
-    //profilePlugin->browser()->registerKeyEvent(RC_KEY_RIGHT, 39, 39);
-    //profilePlugin->browser()->registerKeyEvent(RC_KEY_DOWN, 40, 40);
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_OK, 13, 13);
+    BrowserPlugin* browser = profilePlugin->browser();
+    if(browser)
+    {
+        browser->clearKeyEvents();
+        //browser->registerKeyEvent(RC_KEY_LEFT, 37, 37);
+        //browser->registerKeyEvent(RC_KEY_UP, 38, 38);
+        //browser->registerKeyEvent(RC_KEY_RIGHT, 39, 39);
+        //browser->registerKeyEvent(RC_KEY_DOWN, 40, 40);
+        browser->registerKeyEvent(RC_KEY_OK, 13, 13);
 
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_RED, 11, 11);
+        browser->registerKeyEvent(RC_KEY_RED, 11, 11);
 
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_EXIT, 27, 27); //ESC
+        browser->registerKeyEvent(RC_KEY_EXIT, 27, 27); //ESC
 
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_RED, 112, 112); //F1 / Red
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_GREEN, 113, 113); //F2 / Green
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_YELLOW, 114, 114); //F3 / Yellow
-    profilePlugin->browser()->registerKeyEvent(RC_KEY_BLUE, 115, 115); //F4 / Blue
+        browser->registerKeyEvent(RC_KEY_RED, 112, 112); //F1 / Red
+        browser->registerKeyEvent(RC_KEY_GREEN, 113, 113); //F2 / Green
+        browser->registerKeyEvent(RC_KEY_YELLOW, 114, 114); //F3 / Yellow
+        browser->registerKeyEvent(RC_KEY_BLUE, 115, 115); //F4 / Blue
+    }
 }
 
 QString GuiConfigProfile::portal()
