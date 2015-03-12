@@ -8,8 +8,8 @@
 
 using namespace yasem;
 
-WebGuiPluginObject::WebGuiPluginObject(Plugin* plugin, QObject* parent):
-    StbPluginObject(plugin, parent)
+WebGuiPluginObject::WebGuiPluginObject(Plugin* plugin):
+    StbPluginObject(plugin)
 {
     QList<StbSubmodel> &submodels = getSubmodels();
     submodels.append(StbSubmodel("config", "config"));
@@ -27,7 +27,8 @@ PluginObjectResult yasem::WebGuiPluginObject::init()
     gui(dynamic_cast<GuiPluginObject*>(PluginManager::instance()->getByRole(ROLE_GUI)));
     browser(dynamic_cast<BrowserPluginObject*>(PluginManager::instance()->getByRole(ROLE_BROWSER)));
 
-    Profile* profile = ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
+    // Create a stub profile if not created yet (i.e. if the app starts in the first time)
+    ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
     return PLUGIN_OBJECT_RESULT_OK;
 }
 

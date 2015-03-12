@@ -1,18 +1,13 @@
 
-include(../../common.pri)
-
-GONFIG -= gui
-
-CONFIG += c++11
-
+VERSION = 0.1.0
 TARGET = yasem-web-gui-plugin
 TEMPLATE = lib
 
-DEFINES += WEBGUI_LIBRARY
-DESTDIR = $$DEFAULT_PLUGIN_DIR
+include($${top_srcdir}/common.pri)
 
-INCLUDEPATH += ../../yasem-core/
-DEPENDPATH += ../../yasem-core/
+GONFIG -= gui
+
+DEFINES += WEBGUI_LIBRARY
 
 DISTFILES += \
     gui/index.html \
@@ -24,25 +19,22 @@ SOURCES += \
     webguiplugin.cpp \
     guiconfigprofile.cpp \
     guistbobject.cpp \
-    ../../yasem-core/plugin.cpp \
     webguipluginobject.cpp \
-    ../../yasem-core/stbpluginobject.cpp
+    $${CORE_ROOT_DIR}/stbpluginobject.cpp
 
 HEADERS += \
     webguiplugin.h \
     guiconfigprofile.h \
     guistbobject.h \
-    ../../yasem-core/abstractpluginobject.h \
-    ../../yasem-core/plugin.h \
-    ../../yasem-core/stbpluginobject.h \
-    ../../yasem-core/browserpluginobject.h \
+    $${CORE_ROOT_DIR}/stbpluginobject.h \
+    $${CORE_ROOT_DIR}/browserpluginobject.h \
     webguipluginobject.h
 
 OTHER_FILES += \
     metadata.json
 
 GUI_SRC_DIR = $$PWD/gui
-GUI_DEST_DIR = $$DESTDIR/../gui
+GUI_DEST_DIR = $$OUT_DIR/gui
 
 win32:GUI_SRC_DIR ~= s,/,\\,g
 win32:GUI_DEST_DIR ~= s,/,\\,g

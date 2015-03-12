@@ -9,7 +9,7 @@ namespace yasem
 class WebGuiPluginObject: public StbPluginObject
 {
 public:
-    WebGuiPluginObject(Plugin* plugin, QObject* parent = 0);
+    WebGuiPluginObject(Plugin* plugin);
     ~WebGuiPluginObject();
 
     // AbstractPluginObject interface
