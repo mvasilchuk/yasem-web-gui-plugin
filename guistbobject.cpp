@@ -1,7 +1,9 @@
 #include "guistbobject.h"
 #include "profilemanager.h"
 #include "stbprofile.h"
-#include "profileconfig.h"
+#include "pluginmanager.h"
+#include "stbpluginobject.h"
+#include "plugin.h"
 
 
 #include <QJsonDocument>
@@ -33,7 +35,7 @@ QJsonObject GuiStbObject::getProfilesMenuJson()
     {
         if(profile->hasFlag(Profile::HIDDEN)) continue;
 
-        StbPlugin* plugin = profile->getProfilePlugin();
+        StbPluginObject* plugin = profile->getProfilePlugin();
         QString id = profile->getId();
 
         QJsonObject obj;
@@ -64,40 +66,33 @@ QJsonObject GuiStbObject::getProfilesMenuJson()
 
 QJsonObject GuiStbObject::getNewProfileMenuJson()
 {
-    QMap<QString, StbPlugin*> classes = ProfileManager::instance()->getRegisteredClasses();
+    QMap<QString, StbPluginObject*> stb_plugins = ProfileManager::instance()->getRegisteredClasses();
 
     QJsonObject result;
     QJsonObject items;
 
-    for(const QString &classId: classes.keys())
+    for(const QString &classId: stb_plugins.keys())
     {
-        foreach(PluginRole role, classes.value(classId)->roles())
+        StbPluginObject* stb_plugin = stb_plugins.value(classId);
+
+        DEBUG() << "STB API found:" << stb_plugin->plugin()->getClassName();
+
+        QList<StbSubmodel> submodels = stb_plugin->getSubmodels();
+
+        for(const StbSubmodel &submodel: submodels)
         {
-            if(role != ROLE_STB_API) break;
+            QJsonObject obj;
+            obj.insert("type", QString("new-stb-profile"));
+            obj.insert("image", submodel.m_logo);
+            obj.insert("title", submodel.m_name);
+            obj.insert("class", classId);
+            obj.insert(CONFIG_SUBMODEL, submodel.m_id);
 
-            StbPlugin* plugin = classes.value(classId);
-
-            DEBUG() << "STB API found:" << plugin->getClassName() ;
-
-            QList<StbSubmodel> submodels = plugin->getSubmodels();
-
-            for(const StbSubmodel &submodel: submodels)
-            {
-                QJsonObject obj;
-                obj.insert("type", QString("new-stb-profile"));
-                obj.insert("image", submodel.logo);
-                obj.insert("title", submodel.name);
-                obj.insert("class", classId);
-                obj.insert(CONFIG_SUBMODEL, submodel.id);
-
-                QString id = classId;
-                id.append(":").append(submodel.id);
-                items.insert(id, obj);
-            }
-
-            //TODO: Should use role name, not Plugin id
-
+            QString id = classId;
+            id.append(":").append(submodel.m_id);
+            items.insert(id, obj);
         }
+
     }
 
     result.insert("items", items);
@@ -168,7 +163,7 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
            }
        }
 
-       result_object.insert("submodel", profile->getSubmodel().id);
+       result_object.insert("submodel", profile->getSubmodel().m_id);
        result_object.insert("submodel_key", QString("%1/%2").arg(profile->getProfilePlugin()->getSubmodelDatasourceGroup(), profile->getProfilePlugin()->getSubmodelDatasourceField()));
        result_object.insert("options", arr);
 
@@ -231,6 +226,7 @@ bool GuiStbObject::removeProfile(const QString &id)
         return ProfileManager::instance()->removeProfile(profile);
     else
         WARN() << qPrintable(QString("GuiStbObject::removeProfile: can't remove the profile %1").arg(id));
+    return false;
 }
 
 QString GuiStbObject::getAppInfo()

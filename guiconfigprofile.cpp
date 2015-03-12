@@ -1,10 +1,11 @@
 #include "guiconfigprofile.h"
-#include "stbplugin.h"
-#include "browserplugin.h"
+#include "stbpluginobject.h"
+#include "browserpluginobject.h"
+#include "abstractwebpage.h"
 
 using namespace yasem;
 
-GuiConfigProfile::GuiConfigProfile(StbPlugin* profilePlugin, const QString &id) :
+GuiConfigProfile::GuiConfigProfile(StbPluginObject* profilePlugin, const QString &id) :
     Profile(profilePlugin, id)
 {
     addFlag(Profile::HIDDEN); // Don't show in STB list
@@ -14,11 +15,11 @@ void GuiConfigProfile::start()
 {
     STUB();
     configureKeyMap();
-    BrowserPlugin* browser = profilePlugin->browser();
+    BrowserPluginObject* browser = m_profile_plugin->browser();
     if(browser)
     {
-        browser->stb(profilePlugin);
-        browser->setInnerSize(QSize(1920, 1080));
+        browser->stb(m_profile_plugin);
+        browser->getActiveWebPage()->setVieportSize(QSize(1920, 1080));
         browser->load(QUrl(portal()));
     }
 }
@@ -39,7 +40,7 @@ void GuiConfigProfile::initDefaults()
 
 void GuiConfigProfile::configureKeyMap()
 {
-    BrowserPlugin* browser = profilePlugin->browser();
+    BrowserPluginObject* browser = m_profile_plugin->browser();
     if(browser)
     {
         browser->clearKeyEvents();

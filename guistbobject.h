@@ -14,10 +14,6 @@ class GuiStbObject : public QObject
 public:
     explicit GuiStbObject(QObject *parent = 0);
 
-
-
-signals:
-
 public slots:
     QString makeJsonMenu();
 

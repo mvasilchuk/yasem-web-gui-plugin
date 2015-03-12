@@ -11,7 +11,8 @@ TEMPLATE = lib
 DEFINES += WEBGUI_LIBRARY
 DESTDIR = $$DEFAULT_PLUGIN_DIR
 
-INCLUDEPATH += ../../yasem-core
+INCLUDEPATH += ../../yasem-core/
+DEPENDPATH += ../../yasem-core/
 
 DISTFILES += \
     gui/index.html \
@@ -22,12 +23,20 @@ DISTFILES += \
 SOURCES += \
     webguiplugin.cpp \
     guiconfigprofile.cpp \
-    guistbobject.cpp
+    guistbobject.cpp \
+    ../../yasem-core/plugin.cpp \
+    webguipluginobject.cpp \
+    ../../yasem-core/stbpluginobject.cpp
 
 HEADERS += \
     webguiplugin.h \
     guiconfigprofile.h \
-    guistbobject.h
+    guistbobject.h \
+    ../../yasem-core/abstractpluginobject.h \
+    ../../yasem-core/plugin.h \
+    ../../yasem-core/stbpluginobject.h \
+    ../../yasem-core/browserpluginobject.h \
+    webguipluginobject.h
 
 OTHER_FILES += \
     metadata.json

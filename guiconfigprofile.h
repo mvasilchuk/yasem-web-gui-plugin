@@ -12,7 +12,7 @@ class GuiConfigProfile : public QObject, public Profile
 {
     Q_OBJECT
 public:
-    explicit GuiConfigProfile(StbPlugin* profilePlugin, const QString &id  = "");
+    explicit GuiConfigProfile(StbPluginObject* profilePlugin, const QString &id  = "");
 
 signals:
 
