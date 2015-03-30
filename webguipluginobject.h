@@ -23,6 +23,10 @@ public slots:
     Profile *createProfile(const QString &id);
     void initObject(AbstractWebPage *page);
     QString getIcon(const QSize &size);
+
+    // StbPluginObject interface
+public slots:
+    QHash<QByteArray, QByteArray> getRequestHeadersForUrl(const QUrl &url);
 };
 
 }

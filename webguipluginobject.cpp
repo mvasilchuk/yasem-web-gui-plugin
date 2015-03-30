@@ -54,10 +54,16 @@ Profile *yasem::WebGuiPluginObject::createProfile(const QString &id)
 void yasem::WebGuiPluginObject::initObject(AbstractWebPage *page)
 {
     getApi().clear();
-    getApi().insert("__GUI__", new GuiStbObject(this));
+    getApi().insert("__GUI__", new GuiStbObject(this, page));
 }
 
 QString yasem::WebGuiPluginObject::getIcon(const QSize &size)
 {
     return "-N/A-";
+}
+
+
+QHash<QByteArray, QByteArray> yasem::WebGuiPluginObject::getRequestHeadersForUrl(const QUrl &url)
+{
+    return QHash<QByteArray, QByteArray>();
 }

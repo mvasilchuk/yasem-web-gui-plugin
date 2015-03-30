@@ -19,8 +19,9 @@ void GuiConfigProfile::start()
     if(browser)
     {
         browser->stb(m_profile_plugin);
-        browser->getActiveWebPage()->setVieportSize(QSize(1920, 1080));
-        browser->load(QUrl(portal()));
+        AbstractWebPage* page = browser->getActiveWebPage();
+        page->setPageViewportSize(QSize(1920, 1080));
+        page->load(QUrl(portal()));
     }
 }
 

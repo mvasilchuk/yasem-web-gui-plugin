@@ -4,6 +4,7 @@
 #include "pluginmanager.h"
 #include "stbpluginobject.h"
 #include "plugin.h"
+#include "abstractwebpage.h"
 
 
 #include <QJsonDocument>
@@ -17,10 +18,12 @@ static const QString MENU_TYPE_NEW_STB_PROFILE = "new-stb-profile";
 static const QString MENU_MAIN = "main-menu";
 static const QString MENU_NEW_PROFILE_CLASSES = "new-profile-classes";
 
-GuiStbObject::GuiStbObject(QObject *parent) :
-    QObject(parent)
+GuiStbObject::GuiStbObject(QObject *parent, AbstractWebPage* page) :
+    QObject(parent),
+    m_page(page)
 {
     datasourcePlugin = dynamic_cast<DatasourcePlugin*>(PluginManager::instance()->getByRole(ROLE_DATASOURCE));
+    m_page->setChromaKeyEnabled(false);
 }
 
 QJsonObject GuiStbObject::getProfilesMenuJson()
@@ -164,7 +167,8 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
        }
 
        result_object.insert("submodel", profile->getSubmodel().m_id);
-       result_object.insert("submodel_key", QString("%1/%2").arg(profile->getProfilePlugin()->getSubmodelDatasourceGroup(), profile->getProfilePlugin()->getSubmodelDatasourceField()));
+       result_object.insert("submodel_key", QString("%1/%2").arg(profile->getProfilePlugin()->getSubmodelDatasourceGroup(),
+                                                                 profile->getProfilePlugin()->getSubmodelDatasourceField()));
        result_object.insert("options", arr);
 
        result = QString(QJsonDocument(result_object).toJson(QJsonDocument::Indented));
