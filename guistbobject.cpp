@@ -47,6 +47,7 @@ QJsonObject GuiStbObject::getProfilesMenuJson()
         obj.insert("title", profile->getName());
         obj.insert("id", id);
         obj.insert("url", profile->datasource()->get("profile", "portal", ""));
+        obj.insert("submodel", profile->getSubmodel().getName());
         obj.insert("class", plugin->getProfileClassId());
 
         items.insert(id, obj);
@@ -63,6 +64,8 @@ QJsonObject GuiStbObject::getProfilesMenuJson()
 
     result.insert("items", items);
     result.insert("count", items.count());
+
+
 
     return result;
 }
@@ -86,13 +89,13 @@ QJsonObject GuiStbObject::getNewProfileMenuJson()
         {
             QJsonObject obj;
             obj.insert("type", QString("new-stb-profile"));
-            obj.insert("image", submodel.m_logo);
-            obj.insert("title", submodel.m_name);
+            obj.insert("image", submodel.getLogo());
+            obj.insert("title", submodel.getName());
             obj.insert("class", classId);
-            obj.insert(CONFIG_SUBMODEL, submodel.m_id);
+            obj.insert(CONFIG_SUBMODEL, submodel.getId());
 
             QString id = classId;
-            id.append(":").append(submodel.m_id);
+            id.append(":").append(submodel.getId());
             items.insert(id, obj);
         }
 
@@ -166,7 +169,7 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
            }
        }
 
-       result_object.insert("submodel", profile->getSubmodel().m_id);
+       result_object.insert("submodel", profile->getSubmodel().getId());
        result_object.insert("submodel_key", QString("%1/%2").arg(profile->getProfilePlugin()->getSubmodelDatasourceGroup(),
                                                                  profile->getProfilePlugin()->getSubmodelDatasourceField()));
        result_object.insert("options", arr);
@@ -239,7 +242,7 @@ QString GuiStbObject::getAppInfo()
 
     result.insert("name", QString("yasem"));
     result.insert("version", QString("version 0.1"));
-    result.insert("copyright", QString("Copyright 2014 by Maxim Vasilchuk"));
+    result.insert("copyright", QString("Copyright 2014-2015 by Maxim Vasilchuk"));
 
     return QString(QJsonDocument(result).toJson(QJsonDocument::Indented));
 }

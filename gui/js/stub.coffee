@@ -31,47 +31,58 @@ if !__GUI__?
                             'id-2': {
                                 image: '',
                                 title: 'ITEM 2',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag',
+                                'submodel': 'MAG250'
                             },
                             'id-3': {
                                 image: '',
                                 title: 'ITEM 3',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag',
+                                'submodel': 'AuraHD'
                             },
                             'id-4': {
                                 image: '',
                                 title: 'ITEM 4',
                                 type: MENU_TYPE.PROFILE
+                                'class': 'mag'
                             },
                             'id-5': {
                                 image: '',
                                 title: 'ITEM 5',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag'
                             },
                             'id-6': {
                                 image: '',
                                 title: 'ITEM 6',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag'
                             },
                             'id-7': {
                                 image: '',
                                 title: 'ITEM 7',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag'
                             },
                             'id-8': {
                                 image: '',
                                 title: 'ITEM 8',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag'
                             },
                             'id-9': {
                                 image: '',
                                 title: 'ITEM 9',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag'
                             },
                             'id-10': {
                                 image: '',
                                 title: 'ITEM 10',
-                                type: MENU_TYPE.PROFILE
+                                type: MENU_TYPE.PROFILE,
+                                'class': 'mag'
                             }
                         }
 

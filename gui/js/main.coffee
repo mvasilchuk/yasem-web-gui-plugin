@@ -1,4 +1,12 @@
 
+DEVICE_IMAGES = {
+    MAG_GENERIC: '../img/mag-generic.png',
+    MAG_250: '../img/mag-250.png',
+    MAG_255: '../img/mag-255.png',
+    AURA_HD: '../img/aura-hd.png',
+
+    DUNE_HD_102: '../img/dune-hd-102.png'
+}
 
 class Main
 
@@ -43,6 +51,8 @@ class Main
 
     _createNode = (tag, jsonData, children) ->
         node = document.createElement(tag)
+        if(tag == 'img')
+            node.onerror = () -> @style.display = 'none'
         for id, data_value of jsonData
             if data_value == null then continue
 
@@ -156,7 +166,33 @@ class Main
 
             node = _createNode('div', {'class': 'item', 'id': id})
             image = _createNode('div', {'class': 'image'})
-            img = _createNode('img', {'src': menu.image })
+
+            console.log(menu.class + ':' + menu.submodel)
+
+            dev_image = menu.image
+            switch(menu.class)
+                when 'mag'
+                    switch(menu.submodel)
+                        when 'MAG250'
+                            dev_image = DEVICE_IMAGES.MAG_250
+                            break
+                        when 'MAG255'
+                            dev_image = DEVICE_IMAGES.MAG_255
+                            break
+                        when 'AuraHD'
+                            dev_image = DEVICE_IMAGES.AURA_HD
+                            break
+                        else
+                            dev_image = DEVICE_IMAGES.MAG_GENERIC
+                            break
+                when 'dunehd'
+                    switch(menu.submodel)
+                        when 'Dune HD TV-102'
+                            dev_image = DEVICE_IMAGES.DUNE_HD_102
+                            break
+                else break
+
+            img = _createNode('img', {'src': dev_image })
 
             image.appendChild(img);
             title = _createNode('div', {'class': 'title', 'text': menu.title})
@@ -349,12 +385,12 @@ class Main
         menu_position.y = y
 
         # TODO: Remove hardcoded value
-        scroll_value = y * 270
+        #scroll_value = y * 270
 
-        if(y >= 2)
-            menu_outer_container.scrollTop = scroll_value
-        if(y <= menu_size.height - 2)
-            menu_outer_container.scrollTop = -scroll_value
+        #if(y >= 2)
+        #    menu_outer_container.scrollTop = scroll_value
+        #if(y <= menu_size.height - 2)
+        #    menu_outer_container.scrollTop = -scroll_value
 
         @move_menu_blocks(x + menu_size.width * y)
 

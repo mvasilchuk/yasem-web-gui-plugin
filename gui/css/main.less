@@ -19,7 +19,12 @@
 @item-full-size: @item-size + ((@item-margin + @item-border-size + @size-fix-for-big-resolutions ) * 2);
 
 body {
-    background-color: @page-background;
+    background: url(../img/banner.jpg);
+    color: coral;
+}
+
+input, select, textarea{
+    color: coral;
 }
 
 .hidden {
@@ -33,7 +38,7 @@ body {
 @shortcuts-bottom-offset: 30px;
 
 .page {
-    background: @page-background;
+    background: url(../img/banner.jpg);
 
     position: absolute;
     margin: auto;
@@ -56,8 +61,8 @@ body {
     }
 }
 
-#main-menu {
 
+#main-menu {
     position: absolute;
 
     width: @inner-page-width;
@@ -71,8 +76,9 @@ body {
 
     //display: flex; // Doesn't work in Qt WebKit
 
-    @item-selected-border-color: lighten(blue, 5%);
-    @item-border-color: lighten(blue, 30%);
+    @item-selected-border-color: lighten(#31708f, 20%);
+    color: coral;
+    @item-border-color: #31708f; //darken(yellow, 30%);
 
     .item {
         width: @item-size;
@@ -87,11 +93,11 @@ body {
 
         border-radius: 20px;
         border: @item-border-size solid @item-border-color;
-        box-shadow: inset 0px 0px 20px 10px @item-border-color;
+        box-shadow: inset 0px 0px 15px 15px @item-border-color;
 
         &.selected, &:hover {
             border: 1px solid @item-selected-border-color;
-            box-shadow: inset 0px 0px 20px 10px @item-selected-border-color;
+            box-shadow: inset 0px 0px 20px 20px @item-selected-border-color;
             cursor: pointer;
         }
 
@@ -113,10 +119,16 @@ body {
             right: 0;
             bottom: 0;
 
-
             img {
                 width: @img-size;
-                height: @img-size;
+                border: 0;
+                outline: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                margin: auto;
             }
         }
 
@@ -173,7 +185,6 @@ body {
 }
 
 .key {
-
     vertical-align: middle;
     font-size: @default-font-size;
 
@@ -222,6 +233,8 @@ body {
 @default-font-size: 20pt;
 
 #shortcuts {
+    color: #b5d9ea;
+    font-weight: bold;
     position: absolute;
     bottom: @shortcuts-bottom-offset;
     width: @inner-page-width;

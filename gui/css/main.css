@@ -1,12 +1,18 @@
 /* fix for big resolutions */
 body {
-  background-color: #e0ffff;
+  background: url(../img/banner.jpg);
+  color: coral;
+}
+input,
+select,
+textarea {
+  color: coral;
 }
 .hidden {
   display: none;
 }
 .page {
-  background: #e0ffff;
+  background: url(../img/banner.jpg);
   position: absolute;
   margin: auto;
   left: 0;
@@ -33,6 +39,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  color: coral;
 }
 #main-menu .item {
   width: 266.66666667px;
@@ -44,13 +51,13 @@ body {
   float: left;
   margin: 2px;
   border-radius: 20px;
-  border: 1px solid #9999ff;
-  box-shadow: inset 0px 0px 20px 10px #9999ff;
+  border: 1px solid #31708f;
+  box-shadow: inset 0px 0px 15px 15px #31708f;
 }
 #main-menu .item.selected,
 #main-menu .item:hover {
-  border: 1px solid #1a1aff;
-  box-shadow: inset 0px 0px 20px 10px #1a1aff;
+  border: 1px solid #5ea5c8;
+  box-shadow: inset 0px 0px 20px 20px #5ea5c8;
   cursor: pointer;
 }
 #main-menu .item.hover {
@@ -71,7 +78,14 @@ body {
 }
 #main-menu .item .image img {
   width: 213.33333333px;
-  height: 213.33333333px;
+  border: 0;
+  outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 }
 #main-menu .item .title {
   width: 240px;
@@ -83,7 +97,7 @@ body {
   text-align: center;
   position: absolute;
   font-size: 18pt;
-  text-shadow: -1px 0px #0000ff;
+  text-shadow: -1px 0px blue;
   white-space: pre-line;
   bottom: 20%;
 }
@@ -149,6 +163,8 @@ body {
   content: "\2193";
 }
 #shortcuts {
+  color: #b5d9ea;
+  font-weight: bold;
   position: absolute;
   bottom: 30px;
   width: 1383.33333333px;
