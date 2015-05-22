@@ -43,9 +43,9 @@ input, select, textarea{
     position: absolute;
     margin: auto;
     left: 0;
-    top: 0;
+    top: 100px;
     right: 0;
-    bottom: @shortcuts-bottom-offset + @shortcut-size;
+    bottom: @shortcuts-bottom-offset + @shortcut-size + 30;
 
     padding: 40px;
 
@@ -63,16 +63,12 @@ input, select, textarea{
 
 
 #main-menu {
-    position: absolute;
+    position: relative;
 
     width: @inner-page-width;
     height: @inner-page-height;
     overflow: visible;
     margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
 
     //display: flex; // Doesn't work in Qt WebKit
 

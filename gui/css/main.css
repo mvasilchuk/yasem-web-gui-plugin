@@ -16,9 +16,9 @@ textarea {
   position: absolute;
   margin: auto;
   left: 0;
-  top: 0;
+  top: 100px;
   right: 0;
-  bottom: 110px;
+  bottom: 140px;
   padding: 40px;
   overflow-y: auto;
 }
@@ -30,15 +30,11 @@ textarea {
   z-index: 9999;
 }
 #main-menu {
-  position: absolute;
+  position: relative;
   width: 1383.33333333px;
   height: 830px;
   overflow: visible;
   margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   color: coral;
 }
 #main-menu .item {
