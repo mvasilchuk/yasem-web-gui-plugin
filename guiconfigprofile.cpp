@@ -35,7 +35,13 @@ void GuiConfigProfile::initDefaults()
     if(datasource())
     {
         if(datasource()->get("common", "url") == "")
+        {
+#ifdef Q_OS_DARWIN
             datasource()->set("common", "url", "gui/html/main.html");
+#else
+            datasource()->set("common", "url", "../Resources/gui/html/main.html");
+#endif
+        }
     }
 }
 
