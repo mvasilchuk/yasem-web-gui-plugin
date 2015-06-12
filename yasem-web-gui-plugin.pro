@@ -28,7 +28,10 @@ HEADERS += \
     guistbobject.h \
     $${CORE_ROOT_DIR}/stbpluginobject.h \
     $${CORE_ROOT_DIR}/browserpluginobject.h \
-    webguipluginobject.h
+    webguipluginobject.h \
+    $${CORE_ROOT_DIR}/guipluginobject.h \
+    $${CORE_ROOT_DIR}/datasourceplugin.h \
+    $${CORE_ROOT_DIR}/datasourcepluginobject.h
 
 OTHER_FILES += \
     metadata.json

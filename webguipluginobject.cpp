@@ -23,8 +23,6 @@ WebGuiPluginObject::~WebGuiPluginObject()
 PluginObjectResult yasem::WebGuiPluginObject::init()
 {
     StbPluginObject::init();// It's reqired to register profile class id first
-
-    gui(dynamic_cast<GuiPluginObject*>(PluginManager::instance()->getByRole(ROLE_GUI)));
     browser(dynamic_cast<BrowserPluginObject*>(PluginManager::instance()->getByRole(ROLE_BROWSER)));
 
     // Create a stub profile if not created yet (i.e. if the app starts in the first time)
