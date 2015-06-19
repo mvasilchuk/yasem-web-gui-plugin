@@ -37,12 +37,12 @@ OTHER_FILES += \
     metadata.json
 
 GUI_SRC_DIR = $$PWD/gui
-macx {
+macx:!contains(CONFIG, NO_BUNDLE): {
     GUI_DEST_DIR = $$OUT_DIR/$${top_target_app}.app/Contents/Resources/gui
 } else {
     GUI_DEST_DIR = $$OUT_DIR/gui
 }
-message($$GUI_DEST_DIR)
+!build_pass:message("Web GUI dir:" $$GUI_DEST_DIR)
 
 win32:GUI_SRC_DIR ~= s,/,\\,g
 win32:GUI_DEST_DIR ~= s,/,\\,g

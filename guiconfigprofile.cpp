@@ -5,6 +5,16 @@
 
 using namespace yasem;
 
+#ifdef Q_OS_DARWIN
+    #ifdef USE_OSX_BUNDLE
+           static const QString DEFAULT_GUI_URL = "../Resources/gui/html/main.html";
+    #else
+           static const QString DEFAULT_GUI_URL = "../../../gui/html/main.html";
+    #endif //USE_OSX_BUNDLE
+#else
+           static const QString DEFAULT_GUI_URL = "gui/html/main.html";
+#endif //Q_OS_DARWIN
+
 GuiConfigProfile::GuiConfigProfile(StbPluginObject* profilePlugin, const QString &id) :
     Profile(profilePlugin, id)
 {
@@ -36,11 +46,7 @@ void GuiConfigProfile::initDefaults()
     {
         if(datasource()->get("common", "url") == "")
         {
-#ifdef Q_OS_DARWIN
-            datasource()->set("common", "url", "../Resources/gui/html/main.html");
-#else
-            datasource()->set("common", "url", "gui/html/main.html");
-#endif
+            datasource()->set("common", "url", DEFAULT_GUI_URL);
         }
     }
 }
@@ -71,7 +77,11 @@ void GuiConfigProfile::configureKeyMap()
 QString GuiConfigProfile::portal()
 {
     QString urlToLoad;
+#ifdef QT_DEBUG
     QString url = datasource()->get("common", "url");
+#else
+    QString url = DEFAULT_GUI_URL;
+#endif //QT_DEBUG
 
     if(url.startsWith("file:///"))
         urlToLoad = url;
