@@ -23,5 +23,6 @@ void yasem::WebGuiPlugin::register_dependencies()
 
 void yasem::WebGuiPlugin::register_roles()
 {
+    addFlag(PLUGIN_FLAG_SYSTEM);
     register_role(ROLE_WEB_GUI, new WebGuiPluginObject(this));
 }
