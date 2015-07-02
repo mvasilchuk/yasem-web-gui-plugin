@@ -18,7 +18,9 @@ class WebGuiPlugin: public Plugin
     Q_INTERFACES(yasem::Plugin)
 
     Q_CLASSINFO("author", "Maxim Vasilchuk")
-    Q_CLASSINFO("description", "Web GUI plugin for YASEM")
+    Q_CLASSINFO("description", "Web GUI")
+    Q_CLASSINFO("version", MODULE_VERSION)
+    Q_CLASSINFO("revision", GIT_VERSION)
 public:
     explicit WebGuiPlugin(QObject *parent = 0);
     virtual ~WebGuiPlugin();

@@ -19,19 +19,13 @@ SOURCES += \
     webguiplugin.cpp \
     guiconfigprofile.cpp \
     guistbobject.cpp \
-    webguipluginobject.cpp \
-    $${CORE_ROOT_DIR}/stbpluginobject.cpp
+    webguipluginobject.cpp
 
 HEADERS += \
     webguiplugin.h \
     guiconfigprofile.h \
     guistbobject.h \
-    $${CORE_ROOT_DIR}/stbpluginobject.h \
-    $${CORE_ROOT_DIR}/browserpluginobject.h \
-    webguipluginobject.h \
-    $${CORE_ROOT_DIR}/guipluginobject.h \
-    $${CORE_ROOT_DIR}/datasourceplugin.h \
-    $${CORE_ROOT_DIR}/datasourcepluginobject.h
+    webguipluginobject.h
 
 OTHER_FILES += \
     metadata.json
