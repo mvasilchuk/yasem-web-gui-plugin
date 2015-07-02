@@ -5,7 +5,7 @@ TEMPLATE = lib
 
 include($${top_srcdir}/common.pri)
 
-GONFIG -= gui
+CONFIG -= gui
 
 DEFINES += WEBGUI_LIBRARY
 
