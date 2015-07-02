@@ -2,7 +2,6 @@
 #define WEBGUIPLUGIN_H
 
 #include "plugin.h"
-#include "stbpluginobject.h"
 
 #include <QObject>
 

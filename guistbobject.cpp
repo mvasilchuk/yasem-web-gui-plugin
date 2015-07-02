@@ -5,7 +5,7 @@
 #include "stbpluginobject.h"
 #include "plugin.h"
 #include "abstractwebpage.h"
-
+#include "datasourcepluginobject.h"
 
 #include <QJsonDocument>
 #include <QRegularExpression>

@@ -2,6 +2,8 @@
 #include "stbpluginobject.h"
 #include "browserpluginobject.h"
 #include "abstractwebpage.h"
+#include "macros.h"
+#include "datasourcepluginobject.h"
 
 using namespace yasem;
 
