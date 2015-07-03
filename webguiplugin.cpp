@@ -4,7 +4,7 @@
 using namespace yasem;
 
 WebGuiPlugin::WebGuiPlugin(QObject *parent):
-    Plugin(parent)
+    SDK::Plugin(parent)
 {
 
 }
@@ -16,13 +16,13 @@ WebGuiPlugin::~WebGuiPlugin()
 
 void yasem::WebGuiPlugin::register_dependencies()
 {
-    add_dependency(ROLE_BROWSER);
-    add_dependency(PluginDependency(ROLE_STB_API, false, true));
-    add_dependency(PluginDependency(ROLE_WEB_SERVER, false));
+    add_dependency(SDK::ROLE_BROWSER);
+    add_dependency({SDK::ROLE_STB_API, false, true});
+    add_dependency({SDK::ROLE_WEB_SERVER, false});
 }
 
 void yasem::WebGuiPlugin::register_roles()
 {
-    addFlag(PLUGIN_FLAG_SYSTEM);
-    register_role(ROLE_WEB_GUI, new WebGuiPluginObject(this));
+    addFlag(SDK::PLUGIN_FLAG_SYSTEM);
+    register_role(SDK::ROLE_WEB_GUI, new WebGuiPluginObject(this));
 }

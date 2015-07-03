@@ -8,11 +8,11 @@
 namespace yasem
 {
 
-class GuiConfigProfile : public QObject, public Profile
+class GuiConfigProfile : public QObject, public SDK::Profile
 {
     Q_OBJECT
 public:
-    explicit GuiConfigProfile(StbPluginObject* profilePlugin, const QString &id  = "");
+    explicit GuiConfigProfile(SDK::StbPluginObject* profilePlugin, const QString &id  = "");
 
 signals:
 

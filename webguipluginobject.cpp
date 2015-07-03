@@ -5,14 +5,15 @@
 #include "browserpluginobject.h"
 #include "profilemanager.h"
 #include "pluginmanager.h"
+#include "macros.h"
 
 using namespace yasem;
 
-WebGuiPluginObject::WebGuiPluginObject(Plugin* plugin):
-    StbPluginObject(plugin)
+WebGuiPluginObject::WebGuiPluginObject(SDK::Plugin* plugin):
+    SDK::StbPluginObject(plugin)
 {
-    QList<StbSubmodel> &submodels = getSubmodels();
-    submodels.append(StbSubmodel("config", "config"));
+    QList<SDK::StbSubmodel> &submodels = getSubmodels();
+    submodels.append(SDK::StbSubmodel("config", "config"));
 }
 
 WebGuiPluginObject::~WebGuiPluginObject()
@@ -20,19 +21,19 @@ WebGuiPluginObject::~WebGuiPluginObject()
 
 }
 
-PluginObjectResult yasem::WebGuiPluginObject::init()
+SDK::PluginObjectResult WebGuiPluginObject::init()
 {
-    StbPluginObject::init();// It's reqired to register profile class id first
-    browser(dynamic_cast<BrowserPluginObject*>(PluginManager::instance()->getByRole(ROLE_BROWSER)));
+    SDK::StbPluginObject::init();// It's reqired to register profile class id first
+    browser(__get_plugin<SDK::BrowserPluginObject*>(SDK::ROLE_BROWSER));
 
     // Create a stub profile if not created yet (i.e. if the app starts in the first time)
-    ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
-    return PLUGIN_OBJECT_RESULT_OK;
+    SDK::ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
+    return SDK::PLUGIN_OBJECT_RESULT_OK;
 }
 
-PluginObjectResult yasem::WebGuiPluginObject::deinit()
+SDK::PluginObjectResult yasem::WebGuiPluginObject::deinit()
 {
-    return PLUGIN_OBJECT_RESULT_OK;
+    return SDK::PLUGIN_OBJECT_RESULT_OK;
 }
 
 QString yasem::WebGuiPluginObject::getProfileClassId()
@@ -40,16 +41,16 @@ QString yasem::WebGuiPluginObject::getProfileClassId()
     return "web-gui-plugin";
 }
 
-Profile *yasem::WebGuiPluginObject::createProfile(const QString &id)
+SDK::Profile *yasem::WebGuiPluginObject::createProfile(const QString &id)
 {
-    Profile* profile = new GuiConfigProfile(this, id);
+    SDK::Profile* profile = new GuiConfigProfile(this, id);
     profile->setId("web-gui-config");
     profile->setName("web-gui-config");
-    ProfileManager::instance()->addProfile(profile);
+    SDK::ProfileManager::instance()->addProfile(profile);
     return profile;
 }
 
-void yasem::WebGuiPluginObject::initObject(AbstractWebPage *page)
+void yasem::WebGuiPluginObject::initObject(SDK::AbstractWebPage *page)
 {
     getApi().clear();
     getApi().insert("__GUI__", new GuiStbObject(this, page));

@@ -17,21 +17,21 @@ using namespace yasem;
            static const QString DEFAULT_GUI_URL = "gui/html/main.html";
 #endif //Q_OS_DARWIN
 
-GuiConfigProfile::GuiConfigProfile(StbPluginObject* profilePlugin, const QString &id) :
-    Profile(profilePlugin, id)
+GuiConfigProfile::GuiConfigProfile(SDK::StbPluginObject* profilePlugin, const QString &id) :
+    SDK::Profile(profilePlugin, id)
 {
-    addFlag(Profile::HIDDEN); // Don't show in STB list
+    addFlag(SDK::Profile::HIDDEN); // Don't show in STB list
 }
 
 void GuiConfigProfile::start()
 {
     STUB();
     configureKeyMap();
-    BrowserPluginObject* browser = m_profile_plugin->browser();
+    SDK::BrowserPluginObject* browser = m_profile_plugin->browser();
     if(browser)
     {
         browser->stb(m_profile_plugin);
-        AbstractWebPage* page = browser->getActiveWebPage();
+        SDK::AbstractWebPage* page = browser->getActiveWebPage();
         page->setPageViewportSize(QSize(1920, 1080));
         page->load(QUrl(portal()));
     }
@@ -55,7 +55,7 @@ void GuiConfigProfile::initDefaults()
 
 void GuiConfigProfile::configureKeyMap()
 {
-    BrowserPluginObject* browser = m_profile_plugin->browser();
+    SDK::BrowserPluginObject* browser = m_profile_plugin->browser();
     if(browser)
     {
         browser->clearKeyEvents();
@@ -63,16 +63,16 @@ void GuiConfigProfile::configureKeyMap()
         //browser->registerKeyEvent(RC_KEY_UP, 38, 38);
         //browser->registerKeyEvent(RC_KEY_RIGHT, 39, 39);
         //browser->registerKeyEvent(RC_KEY_DOWN, 40, 40);
-        browser->registerKeyEvent(RC_KEY_OK, 13, 13);
+        browser->registerKeyEvent(SDK::RC_KEY_OK, 13, 13);
 
-        browser->registerKeyEvent(RC_KEY_RED, 11, 11);
+        browser->registerKeyEvent(SDK::RC_KEY_RED, 11, 11);
 
-        browser->registerKeyEvent(RC_KEY_EXIT, 27, 27); //ESC
+        browser->registerKeyEvent(SDK::RC_KEY_EXIT, 27, 27); //ESC
 
-        browser->registerKeyEvent(RC_KEY_RED, 112, 112); //F1 / Red
-        browser->registerKeyEvent(RC_KEY_GREEN, 113, 113); //F2 / Green
-        browser->registerKeyEvent(RC_KEY_YELLOW, 114, 114); //F3 / Yellow
-        browser->registerKeyEvent(RC_KEY_BLUE, 115, 115); //F4 / Blue
+        browser->registerKeyEvent(SDK::RC_KEY_RED, 112, 112); //F1 / Red
+        browser->registerKeyEvent(SDK::RC_KEY_GREEN, 113, 113); //F2 / Green
+        browser->registerKeyEvent(SDK::RC_KEY_YELLOW, 114, 114); //F3 / Yellow
+        browser->registerKeyEvent(SDK::RC_KEY_BLUE, 115, 115); //F4 / Blue
     }
 }
 

@@ -6,14 +6,17 @@
 
 namespace yasem
 {
+
+namespace SDK {
 class DatasourcePlugin;
 class AbstractWebPage;
+}
 
 class GuiStbObject : public QObject
 {
     Q_OBJECT
 public:
-    explicit GuiStbObject(QObject *parent, AbstractWebPage* page);
+    explicit GuiStbObject(QObject *parent, SDK::AbstractWebPage* page);
 
 public slots:
     QString makeJsonMenu();
@@ -30,9 +33,8 @@ public slots:
     QString getAppInfo();
     bool removeProfile(const QString &id);
 protected:
-    DatasourcePlugin* datasourcePlugin;
-
-    AbstractWebPage* m_page;
+    SDK::DatasourcePlugin* datasourcePlugin;
+    SDK::AbstractWebPage* m_page;
 
 };
 

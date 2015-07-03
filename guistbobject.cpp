@@ -18,27 +18,27 @@ static const QString MENU_TYPE_NEW_STB_PROFILE = "new-stb-profile";
 static const QString MENU_MAIN = "main-menu";
 static const QString MENU_NEW_PROFILE_CLASSES = "new-profile-classes";
 
-GuiStbObject::GuiStbObject(QObject *parent, AbstractWebPage* page) :
+GuiStbObject::GuiStbObject(QObject *parent, SDK::AbstractWebPage* page) :
     QObject(parent),
     m_page(page)
 {
-    datasourcePlugin = dynamic_cast<DatasourcePlugin*>(PluginManager::instance()->getByRole(ROLE_DATASOURCE));
+    datasourcePlugin = __get_plugin<SDK::DatasourcePlugin*>(SDK::ROLE_DATASOURCE);
     m_page->setChromaKeyEnabled(false);
 }
 
 QJsonObject GuiStbObject::getProfilesMenuJson()
 {
-    QList<Profile*> profiles = ProfileManager::instance()->getProfiles().toList();
-    qSort(profiles.begin(), profiles.end(), [](Profile *first, Profile *second) { return first->getName() < second->getName(); });
+    QList<SDK::Profile*> profiles = SDK::ProfileManager::instance()->getProfiles().toList();
+    qSort(profiles.begin(), profiles.end(), [](SDK::Profile *first, SDK::Profile *second) { return first->getName() < second->getName(); });
 
     QJsonObject result;
     QJsonObject items;
 
-    foreach(Profile* profile, profiles)
+    foreach(SDK::Profile* profile, profiles)
     {
-        if(profile->hasFlag(Profile::HIDDEN)) continue;
+        if(profile->hasFlag(SDK::Profile::HIDDEN)) continue;
 
-        StbPluginObject* plugin = profile->getProfilePlugin();
+        SDK::StbPluginObject* plugin = profile->getProfilePlugin();
         QString id = profile->getId();
 
         QJsonObject obj;
@@ -72,20 +72,20 @@ QJsonObject GuiStbObject::getProfilesMenuJson()
 
 QJsonObject GuiStbObject::getNewProfileMenuJson()
 {
-    QMap<QString, StbPluginObject*> stb_plugins = ProfileManager::instance()->getRegisteredClasses();
+    QMap<QString, SDK::StbPluginObject*> stb_plugins = SDK::ProfileManager::instance()->getRegisteredClasses();
 
     QJsonObject result;
     QJsonObject items;
 
     for(const QString &classId: stb_plugins.keys())
     {
-        StbPluginObject* stb_plugin = stb_plugins.value(classId);
+        SDK::StbPluginObject* stb_plugin = stb_plugins.value(classId);
 
         DEBUG() << "STB API found:" << stb_plugin->plugin()->getClassName();
 
-        QList<StbSubmodel> submodels = stb_plugin->getSubmodels();
+        QList<SDK::StbSubmodel> submodels = stb_plugin->getSubmodels();
 
-        for(const StbSubmodel &submodel: submodels)
+        for(const SDK::StbSubmodel &submodel: submodels)
         {
             QJsonObject obj;
             obj.insert("type", QString("new-stb-profile"));
@@ -127,7 +127,7 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
 {
    DEBUG() << profileId;
    QString result = "";
-   Profile* profile = ProfileManager::instance()->findById(profileId);
+   SDK::Profile* profile = SDK::ProfileManager::instance()->findById(profileId);
 
    if(!profile)
    {
@@ -138,15 +138,15 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
        QJsonObject result_object;
        QJsonArray arr;
 
-       const ProfileConfiguration &config = profile->config();
+       const SDK::ProfileConfiguration &config = profile->config();
 
-       for(ProfileConfigGroup group: config.groups)
+       for(SDK::ProfileConfigGroup group: config.groups)
        {
            DEBUG() << "GROUP:" << group.title;
 
            for(int index = 0; index < group.options.size(); index++)
            {
-               const ConfigOption &option = group.options.at(index);
+               const SDK::ConfigOption &option = group.options.at(index);
 
                QJsonObject obj;
 
@@ -186,10 +186,10 @@ QString GuiStbObject::createProfile(const QString &classId, const QString &submo
     STUB();
     qDebug() << classId << submodel << "data" << data;
 
-    Profile* profile = ProfileManager::instance()->createProfile(classId, submodel);
+    SDK::Profile* profile = SDK::ProfileManager::instance()->createProfile(classId, submodel);
 
     Q_ASSERT(profile);
-    ProfileManager::instance()->addProfile(profile);
+    SDK::ProfileManager::instance()->addProfile(profile);
     qDebug() << profile;
     return profile->getId();
 }
@@ -208,9 +208,9 @@ QString GuiStbObject::getTranslations()
 
 void GuiStbObject::loadProfile(const QString &id)
 {
-    Profile* profile = ProfileManager::instance()->findById(id);
+    SDK::Profile* profile = SDK::ProfileManager::instance()->findById(id);
     if(profile != NULL)
-        ProfileManager::instance()->setActiveProfile(profile);
+        SDK::ProfileManager::instance()->setActiveProfile(profile);
     else
         WARN() << qPrintable(QString("GuiStbObject::loadProfile: can't load profile %1").arg(id));
 }
@@ -218,7 +218,7 @@ void GuiStbObject::loadProfile(const QString &id)
 bool GuiStbObject::saveProfile(const QString &id, const QString& jsonData)
 {
     DEBUG() << id << jsonData;
-    Profile* profile = ProfileManager::instance()->findById(id);
+    SDK::Profile* profile = SDK::ProfileManager::instance()->findById(id);
     if(profile != NULL)
         return profile->saveJsonConfig(jsonData);
     else
@@ -228,9 +228,9 @@ bool GuiStbObject::saveProfile(const QString &id, const QString& jsonData)
 
 bool GuiStbObject::removeProfile(const QString &id)
 {
-    Profile* profile = ProfileManager::instance()->findById(id);
+    SDK::Profile* profile = SDK::ProfileManager::instance()->findById(id);
     if(profile != NULL)
-        return ProfileManager::instance()->removeProfile(profile);
+        return SDK::ProfileManager::instance()->removeProfile(profile);
     else
         WARN() << qPrintable(QString("GuiStbObject::removeProfile: can't remove the profile %1").arg(id));
     return false;

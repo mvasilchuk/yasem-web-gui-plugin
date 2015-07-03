@@ -8,13 +8,15 @@
 namespace yasem
 {
 
+namespace SDK {
 class AbstractWebPage;
+}
 
-class WebGuiPlugin: public Plugin
+class WebGuiPlugin: public SDK::Plugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.mvas.yasem.WebGuiPlugin/1.0" FILE "metadata.json")
-    Q_INTERFACES(yasem::Plugin)
+    Q_INTERFACES(yasem::SDK::Plugin)
 
     Q_CLASSINFO("author", "Maxim Vasilchuk")
     Q_CLASSINFO("description", "Web GUI")

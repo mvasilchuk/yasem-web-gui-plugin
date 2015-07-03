@@ -6,22 +6,22 @@
 namespace yasem
 {
 
-class WebGuiPluginObject: public StbPluginObject
+class WebGuiPluginObject: public SDK::StbPluginObject
 {
 public:
-    WebGuiPluginObject(Plugin* plugin);
+    WebGuiPluginObject(SDK::Plugin* plugin);
     ~WebGuiPluginObject();
 
     // AbstractPluginObject interface
 public:
-    PluginObjectResult init();
-    PluginObjectResult deinit();
+    SDK::PluginObjectResult init();
+    SDK::PluginObjectResult deinit();
 
     // StbPluginObject interface
 public slots:
     QString getProfileClassId();
-    Profile *createProfile(const QString &id);
-    void initObject(AbstractWebPage *page);
+    SDK::Profile *createProfile(const QString &id);
+    void initObject(SDK::AbstractWebPage *page);
     QString getIcon(const QSize &size);
 
     // StbPluginObject interface
