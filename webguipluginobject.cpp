@@ -1,8 +1,8 @@
 #include "webguipluginobject.h"
 #include "guiconfigprofile.h"
 #include "guistbobject.h"
-#include "guipluginobject.h"
-#include "browserpluginobject.h"
+#include "gui.h"
+#include "browser.h"
 #include "profilemanager.h"
 #include "pluginmanager.h"
 #include "macros.h"
@@ -24,7 +24,7 @@ WebGuiPluginObject::~WebGuiPluginObject()
 SDK::PluginObjectResult WebGuiPluginObject::init()
 {
     SDK::StbPluginObject::init();// It's reqired to register profile class id first
-    browser(__get_plugin<SDK::BrowserPluginObject*>(SDK::ROLE_BROWSER));
+    browser(__get_plugin<SDK::Browser*>(SDK::ROLE_BROWSER));
 
     // Create a stub profile if not created yet (i.e. if the app starts in the first time)
     SDK::ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
@@ -50,7 +50,7 @@ SDK::Profile *yasem::WebGuiPluginObject::createProfile(const QString &id)
     return profile;
 }
 
-void yasem::WebGuiPluginObject::initObject(SDK::AbstractWebPage *page)
+void yasem::WebGuiPluginObject::initObject(SDK::WebPage *page)
 {
     getApi().clear();
     getApi().insert("__GUI__", new GuiStbObject(this, page));

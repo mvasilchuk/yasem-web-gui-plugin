@@ -1,7 +1,7 @@
 #include "guiconfigprofile.h"
 #include "stbpluginobject.h"
-#include "browserpluginobject.h"
-#include "abstractwebpage.h"
+#include "browser.h"
+#include "webpage.h"
 #include "macros.h"
 #include "datasourcepluginobject.h"
 
@@ -27,11 +27,11 @@ void GuiConfigProfile::start()
 {
     STUB();
     configureKeyMap();
-    SDK::BrowserPluginObject* browser = m_profile_plugin->browser();
+    SDK::Browser* browser = m_profile_plugin->browser();
     if(browser)
     {
         browser->stb(m_profile_plugin);
-        SDK::AbstractWebPage* page = browser->getActiveWebPage();
+        SDK::WebPage* page = browser->getActiveWebPage();
         page->setPageViewportSize(QSize(1920, 1080));
         page->load(QUrl(portal()));
     }
@@ -55,7 +55,7 @@ void GuiConfigProfile::initDefaults()
 
 void GuiConfigProfile::configureKeyMap()
 {
-    SDK::BrowserPluginObject* browser = m_profile_plugin->browser();
+    SDK::Browser* browser = m_profile_plugin->browser();
     if(browser)
     {
         browser->clearKeyEvents();

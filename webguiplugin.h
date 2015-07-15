@@ -9,7 +9,7 @@ namespace yasem
 {
 
 namespace SDK {
-class AbstractWebPage;
+class WebPage;
 }
 
 class WebGuiPlugin: public SDK::Plugin

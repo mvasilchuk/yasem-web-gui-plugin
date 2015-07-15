@@ -4,7 +4,7 @@
 #include "pluginmanager.h"
 #include "stbpluginobject.h"
 #include "plugin.h"
-#include "abstractwebpage.h"
+#include "webpage.h"
 #include "datasourcepluginobject.h"
 
 #include <QJsonDocument>
@@ -18,7 +18,7 @@ static const QString MENU_TYPE_NEW_STB_PROFILE = "new-stb-profile";
 static const QString MENU_MAIN = "main-menu";
 static const QString MENU_NEW_PROFILE_CLASSES = "new-profile-classes";
 
-GuiStbObject::GuiStbObject(QObject *parent, SDK::AbstractWebPage* page) :
+GuiStbObject::GuiStbObject(QObject *parent, SDK::WebPage* page) :
     QObject(parent),
     m_page(page)
 {
