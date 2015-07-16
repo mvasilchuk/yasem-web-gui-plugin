@@ -63,16 +63,16 @@ void GuiConfigProfile::configureKeyMap()
         //browser->registerKeyEvent(RC_KEY_UP, 38, 38);
         //browser->registerKeyEvent(RC_KEY_RIGHT, 39, 39);
         //browser->registerKeyEvent(RC_KEY_DOWN, 40, 40);
-        browser->registerKeyEvent(SDK::RC_KEY_OK, 13, 13);
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_OK, 13, 13);
 
-        browser->registerKeyEvent(SDK::RC_KEY_RED, 11, 11);
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_RED, 11, 11);
 
-        browser->registerKeyEvent(SDK::RC_KEY_EXIT, 27, 27); //ESC
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_EXIT, 27, 27); //ESC
 
-        browser->registerKeyEvent(SDK::RC_KEY_RED, 112, 112); //F1 / Red
-        browser->registerKeyEvent(SDK::RC_KEY_GREEN, 113, 113); //F2 / Green
-        browser->registerKeyEvent(SDK::RC_KEY_YELLOW, 114, 114); //F3 / Yellow
-        browser->registerKeyEvent(SDK::RC_KEY_BLUE, 115, 115); //F4 / Blue
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_RED, 112, 112); //F1 / Red
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_GREEN, 113, 113); //F2 / Green
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_YELLOW, 114, 114); //F3 / Yellow
+        browser->registerKeyEvent(SDK::GUI::RC_KEY_BLUE, 115, 115); //F4 / Blue
     }
 }
 

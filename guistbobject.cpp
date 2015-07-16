@@ -22,7 +22,7 @@ GuiStbObject::GuiStbObject(QObject *parent, SDK::WebPage* page) :
     QObject(parent),
     m_page(page)
 {
-    datasourcePlugin = __get_plugin<SDK::DatasourcePlugin*>(SDK::ROLE_DATASOURCE);
+    datasourcePlugin = SDK::__get_plugin<SDK::DatasourcePlugin*>(SDK::ROLE_DATASOURCE);
     m_page->setChromaKeyEnabled(false);
 }
 

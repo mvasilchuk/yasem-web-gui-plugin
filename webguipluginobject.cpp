@@ -24,7 +24,7 @@ WebGuiPluginObject::~WebGuiPluginObject()
 SDK::PluginObjectResult WebGuiPluginObject::init()
 {
     SDK::StbPluginObject::init();// It's reqired to register profile class id first
-    browser(__get_plugin<SDK::Browser*>(SDK::ROLE_BROWSER));
+    browser(SDK::__get_plugin<SDK::Browser*>(SDK::ROLE_BROWSER));
 
     // Create a stub profile if not created yet (i.e. if the app starts in the first time)
     SDK::ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
