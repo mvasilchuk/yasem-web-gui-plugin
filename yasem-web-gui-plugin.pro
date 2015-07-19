@@ -5,7 +5,7 @@ TEMPLATE = lib
 
 include($${top_srcdir}/common.pri)
 
-CONFIG -= gui
+QT += network
 
 DEFINES += WEBGUI_LIBRARY
 
