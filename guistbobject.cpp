@@ -142,25 +142,25 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
 
        for(SDK::ProfileConfigGroup group: config.groups)
        {
-           DEBUG() << "GROUP:" << group.title;
+           DEBUG() << "GROUP:" << group.m_title;
 
-           for(int index = 0; index < group.options.size(); index++)
+           for(int index = 0; index < group.m_options.size(); index++)
            {
-               const SDK::ConfigOption &option = group.options.at(index);
+               const SDK::ConfigOption &option = group.m_options.at(index);
 
                QJsonObject obj;
 
-               obj.insert("tag", option.tag);
-               obj.insert("name", option.name);
-               obj.insert("title", option.title);
-               obj.insert("comment", option.comment);
-               obj.insert("value", profile->datasource()->get(option.tag, option.name, option.defaultValue));
-               obj.insert("type", option.type);
+               obj.insert("tag", option.m_tag);
+               obj.insert("name", option.m_name);
+               obj.insert("title", option.m_title);
+               obj.insert("comment", option.m_comment);
+               obj.insert("value", profile->datasource()->get(option.m_tag, option.m_name, option.m_default_value));
+               obj.insert("type", option.m_type);
 
                QJsonObject options;
-               for(const QString &key: option.options.keys())
+               for(const QString &key: option.m_options.keys())
                {
-                   options.insert(key, option.options.value(key));
+                   options.insert(key, option.m_options.value(key));
                }
 
                obj.insert("options", options);

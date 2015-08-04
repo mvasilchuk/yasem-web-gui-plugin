@@ -52,8 +52,7 @@ SDK::Profile *yasem::WebGuiPluginObject::createProfile(const QString &id)
 
 void yasem::WebGuiPluginObject::initObject(SDK::WebPage *page)
 {
-    getApi().clear();
-    getApi().insert("__GUI__", new GuiStbObject(this, page));
+    getApi().insert("__GUI__", QPointer<QObject>(new GuiStbObject(this, page)));
 }
 
 QString yasem::WebGuiPluginObject::getIcon(const QSize &size)

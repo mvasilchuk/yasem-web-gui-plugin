@@ -11,7 +11,7 @@ WebGuiPlugin::WebGuiPlugin(QObject *parent):
 
 WebGuiPlugin::~WebGuiPlugin()
 {
-
+    STUB();
 }
 
 void yasem::WebGuiPlugin::register_dependencies()

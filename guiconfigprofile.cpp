@@ -23,6 +23,11 @@ GuiConfigProfile::GuiConfigProfile(SDK::StbPluginObject* profilePlugin, const QS
     addFlag(SDK::Profile::HIDDEN); // Don't show in STB list
 }
 
+GuiConfigProfile::~GuiConfigProfile()
+{
+    STUB();
+}
+
 void GuiConfigProfile::start()
 {
     STUB();
@@ -58,7 +63,6 @@ void GuiConfigProfile::configureKeyMap()
     SDK::Browser* browser = m_profile_plugin->browser();
     if(browser)
     {
-        browser->clearKeyEvents();
         //browser->registerKeyEvent(RC_KEY_LEFT, 37, 37);
         //browser->registerKeyEvent(RC_KEY_UP, 38, 38);
         //browser->registerKeyEvent(RC_KEY_RIGHT, 39, 39);

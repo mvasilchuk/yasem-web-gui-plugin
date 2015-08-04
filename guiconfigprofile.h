@@ -13,6 +13,7 @@ class GuiConfigProfile : public QObject, public SDK::Profile
     Q_OBJECT
 public:
     explicit GuiConfigProfile(SDK::StbPluginObject* profilePlugin, const QString &id  = "");
+    virtual ~GuiConfigProfile();
 
 signals:
 
