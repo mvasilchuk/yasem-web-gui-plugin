@@ -3,7 +3,7 @@
 #include "browser.h"
 #include "webpage.h"
 #include "macros.h"
-#include "datasourcepluginobject.h"
+#include "datasource.h"
 
 using namespace yasem;
 
@@ -25,14 +25,15 @@ GuiConfigProfile::GuiConfigProfile(SDK::StbPluginObject* profilePlugin, const QS
 
 GuiConfigProfile::~GuiConfigProfile()
 {
-    STUB();
+    STUB() << m_name << m_id;
+    //SDK::Core::printCallStack();
 }
 
 void GuiConfigProfile::start()
 {
     STUB();
     configureKeyMap();
-    SDK::Browser* browser = m_profile_plugin->browser();
+    SDK::Browser* browser = SDK::Browser::instance();
     if(browser)
     {
         browser->stb(m_profile_plugin);
@@ -60,7 +61,7 @@ void GuiConfigProfile::initDefaults()
 
 void GuiConfigProfile::configureKeyMap()
 {
-    SDK::Browser* browser = m_profile_plugin->browser();
+    SDK::Browser* browser = SDK::Browser::instance();
     if(browser)
     {
         //browser->registerKeyEvent(RC_KEY_LEFT, 37, 37);

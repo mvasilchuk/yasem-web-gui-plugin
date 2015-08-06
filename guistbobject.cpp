@@ -5,7 +5,7 @@
 #include "stbpluginobject.h"
 #include "plugin.h"
 #include "webpage.h"
-#include "datasourcepluginobject.h"
+#include "datasource.h"
 
 #include <QJsonDocument>
 #include <QRegularExpression>
@@ -22,19 +22,21 @@ GuiStbObject::GuiStbObject(QObject *parent, SDK::WebPage* page) :
     QObject(parent),
     m_page(page)
 {
-    datasourcePlugin = SDK::__get_plugin<SDK::DatasourcePlugin*>(SDK::ROLE_DATASOURCE);
     m_page->setChromaKeyEnabled(false);
 }
 
 QJsonObject GuiStbObject::getProfilesMenuJson()
 {
-    QList<SDK::Profile*> profiles = SDK::ProfileManager::instance()->getProfiles().toList();
-    qSort(profiles.begin(), profiles.end(), [](SDK::Profile *first, SDK::Profile *second) { return first->getName() < second->getName(); });
+    QList<QSharedPointer<SDK::Profile>> profiles = SDK::ProfileManager::instance()->getProfiles().toList();
+    qSort(profiles.begin(), profiles.end(), [](const QSharedPointer<SDK::Profile>& first, const QSharedPointer<SDK::Profile>& second)
+    {
+        return first->getName() < second->getName();
+    });
 
     QJsonObject result;
     QJsonObject items;
 
-    foreach(SDK::Profile* profile, profiles)
+    foreach(const QSharedPointer<SDK::Profile>& profile, profiles)
     {
         if(profile->hasFlag(SDK::Profile::HIDDEN)) continue;
 
@@ -79,7 +81,7 @@ QJsonObject GuiStbObject::getNewProfileMenuJson()
 
     for(const QString &classId: stb_plugins.keys())
     {
-        SDK::StbPluginObject* stb_plugin = stb_plugins.value(classId);
+        const SDK::StbPluginObject* stb_plugin = stb_plugins.value(classId);
 
         DEBUG() << "STB API found:" << stb_plugin->plugin()->getClassName();
 
@@ -127,7 +129,7 @@ QString GuiStbObject::getProfileConfigOptions(const QString &profileId)
 {
    DEBUG() << profileId;
    QString result = "";
-   SDK::Profile* profile = SDK::ProfileManager::instance()->findById(profileId);
+   const QSharedPointer<SDK::Profile>& profile = SDK::ProfileManager::instance()->findById(profileId);
 
    if(!profile)
    {
@@ -186,7 +188,7 @@ QString GuiStbObject::createProfile(const QString &classId, const QString &submo
     STUB();
     qDebug() << classId << submodel << "data" << data;
 
-    SDK::Profile* profile = SDK::ProfileManager::instance()->createProfile(classId, submodel);
+    const QSharedPointer<SDK::Profile>& profile = SDK::ProfileManager::instance()->createProfile(classId, submodel);
 
     Q_ASSERT(profile);
     SDK::ProfileManager::instance()->addProfile(profile);
@@ -208,7 +210,7 @@ QString GuiStbObject::getTranslations()
 
 void GuiStbObject::loadProfile(const QString &id)
 {
-    SDK::Profile* profile = SDK::ProfileManager::instance()->findById(id);
+    const QSharedPointer<SDK::Profile>& profile = SDK::ProfileManager::instance()->findById(id);
     if(profile != NULL)
         SDK::ProfileManager::instance()->setActiveProfile(profile);
     else
@@ -218,7 +220,7 @@ void GuiStbObject::loadProfile(const QString &id)
 bool GuiStbObject::saveProfile(const QString &id, const QString& jsonData)
 {
     DEBUG() << id << jsonData;
-    SDK::Profile* profile = SDK::ProfileManager::instance()->findById(id);
+    const QSharedPointer<SDK::Profile>& profile = SDK::ProfileManager::instance()->findById(id);
     if(profile != NULL)
         return profile->saveJsonConfig(jsonData);
     else
@@ -228,7 +230,7 @@ bool GuiStbObject::saveProfile(const QString &id, const QString& jsonData)
 
 bool GuiStbObject::removeProfile(const QString &id)
 {
-    SDK::Profile* profile = SDK::ProfileManager::instance()->findById(id);
+    const QSharedPointer<SDK::Profile>& profile = SDK::ProfileManager::instance()->findById(id);
     if(profile != NULL)
         return SDK::ProfileManager::instance()->removeProfile(profile);
     else

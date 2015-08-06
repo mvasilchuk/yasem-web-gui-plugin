@@ -24,7 +24,6 @@ WebGuiPluginObject::~WebGuiPluginObject()
 SDK::PluginObjectResult WebGuiPluginObject::init()
 {
     SDK::StbPluginObject::init();// It's reqired to register profile class id first
-    browser(SDK::__get_plugin<SDK::Browser*>(SDK::ROLE_BROWSER));
 
     // Create a stub profile if not created yet (i.e. if the app starts in the first time)
     SDK::ProfileManager::instance()->createProfile(getProfileClassId(), "config", "web-gui-config", true);
@@ -41,12 +40,11 @@ QString yasem::WebGuiPluginObject::getProfileClassId()
     return "web-gui-plugin";
 }
 
-SDK::Profile *yasem::WebGuiPluginObject::createProfile(const QString &id)
+SDK::Profile* yasem::WebGuiPluginObject::createProfile(const QString &id)
 {
     SDK::Profile* profile = new GuiConfigProfile(this, id);
     profile->setId("web-gui-config");
     profile->setName("web-gui-config");
-    SDK::ProfileManager::instance()->addProfile(profile);
     return profile;
 }
 

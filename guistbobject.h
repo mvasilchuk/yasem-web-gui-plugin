@@ -3,12 +3,13 @@
 
 #include <QJsonObject>
 #include <QObject>
+#include <QSharedPointer>
 
 namespace yasem
 {
 
 namespace SDK {
-class DatasourcePlugin;
+class Datasource;
 class WebPage;
 }
 
@@ -33,7 +34,6 @@ public slots:
     QString getAppInfo();
     bool removeProfile(const QString &id);
 protected:
-    SDK::DatasourcePlugin* datasourcePlugin;
     SDK::WebPage* m_page;
 
 };
