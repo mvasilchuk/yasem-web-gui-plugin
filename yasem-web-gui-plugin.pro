@@ -38,11 +38,8 @@ macx:!contains(CONFIG, NO_BUNDLE): {
 }
 !build_pass:message("Web GUI dir:" $$GUI_DEST_DIR)
 
-win32:GUI_SRC_DIR ~= s,/,\\,g
-win32:GUI_DEST_DIR ~= s,/,\\,g
-
 # Copy all GUI files (html, js, css etc.) into gui subfolder
-copydata.commands = $(COPY_DIR) $$GUI_SRC_DIR $$GUI_DEST_DIR
+copydata.commands = $(COPY_DIR) $$shell_path($$GUI_SRC_DIR) $$shell_path($$GUI_DEST_DIR)
 first.depends = $(first) copydata
 export(first.depends)
 export(copydata.commands)
