@@ -17,7 +17,8 @@ class GuiStbObject : public QObject
 {
     Q_OBJECT
 public:
-    explicit GuiStbObject(QObject *parent, SDK::WebPage* page);
+    explicit GuiStbObject(SDK::WebPage* page);
+    virtual ~GuiStbObject();
 
 public slots:
     QString makeJsonMenu();
