@@ -146,17 +146,21 @@ textarea {
 .key.arrow {
   width: 40px;
 }
-.key.arrow.left:before {
+.key.arrow.Left:before {
   content: "\2190";
 }
-.key.arrow.top:before {
+.key.arrow.Top:before {
   content: "\2191";
 }
-.key.arrow.right:before {
+.key.arrow.Right:before {
   content: "\2192";
 }
-.key.arrow.bottom:before {
+.key.arrow.Bottom:before {
   content: "\2193";
+}
+.key.PageUp,
+.key.PageDown {
+  width: 120px;
 }
 #shortcuts {
   color: #b5d9ea;

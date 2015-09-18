@@ -211,18 +211,22 @@ input, select, textarea{
     &.arrow {
         width: @shortcut-size / 2;
 
-        &.left:before {
+        &.Left:before {
             content: "\2190";
         }
-        &.top:before {
+        &.Top:before {
             content: "\2191";
         }
-        &.right:before {
+        &.Right:before {
             content: "\2192";
         }
-        &.bottom:before {
+        &.Bottom:before {
             content: "\2193";
         }
+    }
+
+    &.PageUp, &.PageDown {
+        width: @shortcut-size * 1.5;
     }
 }
 

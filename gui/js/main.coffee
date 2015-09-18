@@ -237,6 +237,14 @@ class Main
      * @param {Event} e
      *###
     on_menu_keydown: (e) ->
+        ###
+            If clicked on menu item then item's ID is in e.$item
+        ###
+        menu_id = if e.$item then e.$item else menu_id = Menu.current_item_id
+        menu = Menu.items[Menu.current].items[menu_id];
+
+        console.log('Menu:', menu)
+
         switch e.keyCode
             when KEY_CODE.LEFT
                 #@menu_move_horizontal(-1)
@@ -253,14 +261,6 @@ class Main
                 @select_menu_item(menu_position.x, menu_position.y + 1)
                 break;
             when KEY_CODE.ENTER
-                ###
-                    If clicked on menu item then item's ID is in e.$item
-                ###
-                menu_id = if e.$item? then e.$item else Menu.current_item_id
-                menu = Menu.items[Menu.current].items[menu_id];
-
-                console.log('Menu:', menu)
-
                 if menu.type == MENU_TYPE.PROFILE
                     __GUI__.loadProfile(menu.id);
                 if menu.type == MENU_TYPE.NEW_PROFILE

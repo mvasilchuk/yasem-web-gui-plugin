@@ -295,7 +295,14 @@
      */
 
     Main.prototype.on_menu_keydown = function(e) {
+
+      /*
+          If clicked on menu item then item's ID is in e.$item
+       */
       var menu, menu_id, submenu;
+      menu_id = e.$item ? e.$item : menu_id = Menu.current_item_id;
+      menu = Menu.items[Menu.current].items[menu_id];
+      console.log('Menu:', menu);
       switch (e.keyCode) {
         case KEY_CODE.LEFT:
           this.select_menu_item(menu_position.x - 1, menu_position.y);
@@ -310,13 +317,6 @@
           this.select_menu_item(menu_position.x, menu_position.y + 1);
           break;
         case KEY_CODE.ENTER:
-
-          /*
-              If clicked on menu item then item's ID is in e.$item
-           */
-          menu_id = e.$item != null ? e.$item : Menu.current_item_id;
-          menu = Menu.items[Menu.current].items[menu_id];
-          console.log('Menu:', menu);
           if (menu.type === MENU_TYPE.PROFILE) {
             __GUI__.loadProfile(menu.id);
           }
